@@ -1,12 +1,6 @@
-// fetch.js
-
-// APIs
 const url = "https://pokeapi.co/api/v2/pokemon/ditto";
 const urlList = "https://pokeapi.co/api/v2/pokemon";
-
-// Data from APIs
 let results = null;
-let resultsList = null;
 
 async function getPokemon(url) {
   const response = await fetch(url);
@@ -18,36 +12,32 @@ async function getPokemon(url) {
     doStuff(data);
   }
 }
+async function getPokemonList(url) {
+  const response = await fetch(url);
+  if (response.ok) {
+    const data = await response.json();
+    doStuffList(data);
+  }
+}
 function doStuff(data) {
-  // HTML elements
-  const outputHtml = document.getElementById("output");
-
   results = data;
-  //HTML
-  const html = `<h2>${results.name}</h2>
-                <img src="${results.sprites.front_default}" alt="Image of ${results.name}">`;
-  outputHtml.innerHTML = html
+  const outputElement = document.querySelector("#output");
+  const html = `<h2>${data.name}</h2><img src="${data.sprites.front_default}" alt="${data.name}">`;
+  outputElement.innerHTML = html;
   console.log("first: ", results);
 }
 
-async function getPokemonList(urlList) {
-    const response = await fetch(urlList);
-    
-    if (response.ok) {
-        const data = await response.json();
-        doStuffList(data);
-    }
-
-}
-
 function doStuffList(data) {
-    console.log(data);
-    const pokeListHtml = document.getElementById("outputList");
-    const pokeList = data.results;
-    
-    const htmlList = pokeList.map(pokemon => `<li>$`)
-        
+  console.log(data);
+  const pokeListElement = document.querySelector("#outputList");
+  const pokeList = data.results;
+  pokeList.forEach((currentItem) => {
+    const html = `<li>${currentItem.name}</li>`;
+    // note the += here...
+    pokeListElement.innerHTML += html;
+  });
 }
-
 getPokemon(url);
 console.log("second: ", results);
+
+getPokemonList(urlList);
