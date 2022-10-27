@@ -72,7 +72,7 @@ let temples = [];
 // - Appends the <h3> element, the two <h4> elements, and the <img> element to the <article> element as children
 // - Appends the <article> element to the HTML element with an ID of temples
 function output(temples) {
-    for (temple of temples){
+    /* temples.forEach(temple => {
         let article = document.createElement("article");
 
         let h3Name = document.createElement("h3")
@@ -81,24 +81,31 @@ function output(temples) {
         let h4Location = document.createElement("h4")
         let h4LocationText = document.createTextNode(temple.location)
         
-        let h4Dedicated = document.createElement("h4").innerHtml = temple.dedicated
+        let h4Dedicated = document.createElement("h4");
+        let h4DedicatedText = document.createTextNode(temple.dedicated);
+
+
         let image = document.createElement("img").setAttribute("src", temple.imageUrl);
         // image.setAttribute("alt", temple.templeName);
 
         document.getElementById("temples").appendChild(article)
 
-        article.appendChild(h3Name)
-        article.appendChild(h4Location)
-        article.appendChild(h4Dedicated)
-        article.appendChild(image)
-    }
+        article.appendChild(h3Name);
+        h3Name.appendChild(h3NameText);
 
-    // const html = temples.map(temple => `<article>
-    //                                         <h3>${temple.templeName}</h3>
-    //                                         <h4>${temple.location}</h4>
-    //                                         <h4>${temple.dedicated}</h4>
-    //                                         <img src="${temple.imageUrl}" alt="${temple.templeName}">
-    //                                     </article>`)
+        article.appendChild(h4Location);
+        h4Location.appendChild(h4LocationText);
+
+        article.appendChild(h4Dedicated);
+        h4Dedicated.appendChild(h4DedicatedText);
+
+        article.appendChild(image);
+    }); */
+
+    temples.forEach((temple) => {
+        const html = `<article><h3>${temple.templeName}</h3><h4>${temple.location}</h4><h4>${temple.dedicated}</h4><img src="${temple.imageUrl}" alt="${temple.templeName}"></article>`;
+        document.getElementById("temples").innerHTML += html;
+    });
 
 }
 
@@ -125,13 +132,27 @@ async function getTemples() {
 getTemples()
 
 // Step 7: Declare a function named reset that clears all of the <article> elements from the HTML element with an ID of temples
+function reset() {
+    return document.getElementById("temples").innerHTML = "";
+}
 
 // Step 8: Declare a function named sortBy that does the following:
 // - Calls the reset function
 // - Sorts the global temple list by the currently selected value of the HTML element with an ID of sortBy
 // - Calls the output function passing in the sorted list of temples
+function sortBy() {
+    reset();
+    let sort = document.getElementById("sortBy");
+    if (sort.value == "templeNameAscending") {
+        temples.sort((x, y) => y.templeName.localeCompare(x.templeName));
+    } else if (sort.value == "templeNameDescending") {
+        temples.sort((x, y) => y.templeName.localeCompare(x.templeName));
+    }
+    output(temples)
+}
 
 // Step 9: Add a change event listener to the HTML element with an ID of sortBy that calls the sortBy function
+document.getElementById("sortBy").addEventListener("change", sortBy);
 
 /* STRETCH */
 
