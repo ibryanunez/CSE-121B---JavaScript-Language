@@ -144,7 +144,7 @@ function sortBy() {
     reset();
     let sort = document.getElementById("sortBy");
     if (sort.value == "templeNameAscending") {
-        temples.sort((x, y) => y.templeName.localeCompare(x.templeName));
+        temples.sort((x, y) => x.templeName.localeCompare(y.templeName));
     } else if (sort.value == "templeNameDescending") {
         temples.sort((x, y) => y.templeName.localeCompare(x.templeName));
     }
