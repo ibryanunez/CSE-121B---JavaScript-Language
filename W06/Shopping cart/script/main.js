@@ -46,9 +46,6 @@ function addToCart(){
     let buttons = document.querySelectorAll(".shop-item-button");
     buttons.forEach(button => {
         button.addEventListener("click", (event)=>{
-            // Clicked
-            console.log("clicked");
-
             // Get the product's ID.
             let productID = parseInt(event.target.parentNode.id);
 
@@ -65,7 +62,6 @@ function addToCart(){
 
                 productElement.setAttribute("value", product.quantity);
             } else {
-                console.log("add product to DOM and array");
                 shoppingCartProducts.push(product);
                 addToDOM(product);
             }
