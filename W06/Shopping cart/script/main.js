@@ -60,7 +60,7 @@ function addToCart(){
                         <button class="btn btn-danger" type="button">REMOVE</button>
                     </div>
                 </div>`
-            
+
             // Add product object to the shopping cart array.
             shoppingCartProducts.push(product);
             console.log(shoppingCartProducts);
